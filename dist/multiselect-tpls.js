@@ -533,7 +533,15 @@ angular.module('oi.multiselect')
 
                 function blurHandler(event) {
                     if (event.target.ownerDocument.activeElement !== inputElement[0]) {
-                        resetMatches();
+                        //resetMatches();
+                        bottom = scope.order.length - 1;
+
+                        if (!oiUtils.groupsIsEmpty(scope.groups)) {
+                            scope.addItem(scope.order[scope.selectorPosition]);
+                            if (scope.selectorPosition === bottom) {
+                                setOption(listElement, 0);
+                            }
+                        }
                         $document.off('click', blurHandler);
                         scope.isFocused = false;
                         scope.$digest();
